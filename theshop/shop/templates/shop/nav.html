@@ -1,0 +1,38 @@
+{% load static %}
+{% load cart_template_tags %}
+<link rel="stylesheet" href="{% static 'css/nav_css.css' %}">
+<!--nav starts-->
+<nav role="navigation" id="top_nav">
+    <ul id="top_nav_ul" class="clearfix">
+        <li><a href="{% url 'index' %}">TheShop</a></li>
+<!--        shop categories-->
+        <li id="shop_categories"><a href="javascript:void(0)" id="category_btn">Shop  <i class="bi bi-chevron-down"></i></a>
+            <div id="categories">
+                <a href="{% url 'category' %}#category_one">Category 1</a>
+                <a href="{% url 'category' %}#category_two">Category 2</a>
+                <a href="{% url 'category' %}#category_three">Category 3</a>
+                <a href="{% url 'category' %}#category_four">Category 4</a>
+            </div>
+        </li>
+<!--    shop categories    -->
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'account' %}"><i class="bi bi-person"></i> <span class="acc_cart_text">Account</span></a>
+                <span>Hi {{ user.name }}<a href="{% url 'logout' %}">Logout</a></span>
+            </li>
+        {% else %}
+            <li><a href="{% url 'login' %}"><i class="bi bi-person"></i> <span class="acc_cart_text">Login</span></a></li>
+        {% endif %}
+        <li><a href="{% url 'cart' %}"><i class="bi bi-cart3"></i><sup>{{request.user|get_cart_count}}</sup> <span class="acc_cart_text">Cart</span></a></li>
+<!--        search form -->
+
+        <li class="li_search">
+            <form action="get" id="search_form">
+                <input type="text" placeholder="Search...">
+                <input type="submit" value="Search">
+            </form>
+        </li>
+<!--        search form-->
+    </ul>
+</nav>
+<!--nav ends-->

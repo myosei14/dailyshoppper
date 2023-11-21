@@ -1,0 +1,43 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+<footer class="container-fluid">
+    <div class="row container">
+        <div class="col-sm-4 footer_div d-flex justify-content-around">
+            <ul class="footer_categories">
+                <li><a href="#">Category 1</a></li>
+                <li><a href="#">Category 2</a></li>
+                <li><a href="#">Category 3</a></li>
+                <li><a href="#">Category 4</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4 footer_div d-flex justify-content-around">
+
+        </div>
+        <div class="col-sm-4 footer_div d-flex justify-content-around">
+            <ul class="footer_pages">
+                <li><a href="#">TheShop</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container copyright_section clearfix">
+        <div class="d-flex justify-content-around">
+            <ul style="margin:0;">
+                <li><a>Copyright &copy; <span id="current_year"></span></a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+const d = new Date();
+let year = d.getFullYear();
+document.getElementById("current_year").innerHTML = year;
+</script>

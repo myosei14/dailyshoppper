@@ -1,0 +1,83 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+<!--header links-->
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock header_links %}
+
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+{% block content %}
+    <div class="container">
+        <div class="product_detail_section">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="#" class="back_to_products" onclick="history.back()">Back</a>
+                </div>
+            </div>
+            {% for order in order_items %}
+            
+            <form action="{% url 'update-cart' order.product.id %}" method="post" id="{{ order.product.id}}" class="cart-update-form">
+                {% csrf_token %}
+
+                <div class="row">
+                    <input type="hidden" value="{{order.product.id}}" class="hidden-form" name="{{order.product.id}}"/>
+                    <div class="row cart_item">
+                        <div class="col-md-3">
+                            <img src="{{ order.product.image.url }}" alt="{{ order.product }}" class="img-fluid cart_product_img" width=100 height=100>
+                        </div>
+                        <div class="col-md-3">
+                            <p> {{ order.product }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="number" min=0 max=10 value="{{order.quantity}}" class="form-control cart-value-form-input" oninput="validity.valid||(value='');" onchange="activateUpdate({{order.product.id}});" id="update-quantity" name="update-quantity"/>
+                                </div>
+                                <div class="col-md-5">
+                                    <input class="form-control viewcart_btn cart-value-form-input cart-update" id="{{order.product.id}}" type="submit" value="Update" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <p> £{{ order.quantity|mul:order.product.price }}</p>
+                        </div>
+                    </div> 
+                </div>
+            </form>  
+            {% endfor %}
+
+            <div class="row cart_item">
+                <div class="col-md-12 checkout_btn_div">
+                    <a href="{% url 'checkout' %}"><button class="form-control viewcart_btn checkout_btn">Go to Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} end of container {% endcomment %}
+
+    <script>
+                      
+        function activateUpdate(orderId){
+            var updateBtn = document.getElementsByClassName("cart-update");
+            for(let i = 0; i < updateBtn.length; i++){
+                if (updateBtn[i].id == orderId){
+                    updateBtn[i].removeAttribute("disabled");
+                }
+                
+            }
+        }
+    </script>
+{% endblock content %}
+
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}

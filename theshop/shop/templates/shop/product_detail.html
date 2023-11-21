@@ -1,0 +1,75 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+<!--header links-->
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock header_links %}
+
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+<!--content-->
+{% block content %}
+    <div class="container">
+        {% if message in messages %}
+        <p class= "animate__animated animate__fadeInDown messages">{{ message }}</p>
+        {% endif %}
+        <div class="product_detail_section">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="#" class="back_to_products" onclick="history.back()">Back</a>
+                </div>
+            </div>
+
+            {% if product %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ product.image.url }}" class="img-fluid">
+                    </div>
+                    <div class="col-md-6 detail_section">
+                        <h4>{{ product.product }}</h4><br/>
+                        <p> This is the a sample description of the product you choose. This placeholder will be replaced with a real product description.</p><br/>
+                        <h4>$ {{ product.price }}</h4><br/><br/>
+                         <form action="{% url 'add_to_cart' product.id %}" method="post">
+                             {% csrf_token %}
+                             <div class="row">
+                                 <div class="col-md-4">
+                                    <select class="form-control quantity_select" name="quantity" id="quantity">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                 </div>
+                                 <div class="col-md-8">
+                                     <input type="submit" value="Add to cart" class=" form-control btn btn-primary add_to_cart_btn">
+                                 </div>
+                             </div>
+                             
+                        </form>
+                        <div class="row">
+                                 <div class="col-md-12">
+                                    <a href="{% url 'cart' %}"><button class="form-control viewcart_btn">View your cart</button></a>
+                                 </div>
+                             </div>
+                    </div>
+                </div>
+            {% else %}
+                <h4>Product not found</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}

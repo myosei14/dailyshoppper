@@ -1,0 +1,54 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock header_links %}
+{% block content %}
+
+<div class="form_container">
+    <h3>Create account</h3><br/>
+    <p><a href="{% url 'index' %}">Back to Store</a></p>
+    {% for message in messages %}
+        <p class= "animate__animated animate__fadeInDown messages">{{ message }}</p>
+    {% endfor %}
+    <br/>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="accordion" id="accordionRegister">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Your Details
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionRegister">
+              <div class="accordion-body">
+                {{ customer_form.as_p }}
+              </div>
+            </div>
+          </div>
+            <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Account Info
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionRegister">
+              <div class="accordion-body">
+                {{ account_info_form.as_p }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-success" value="Register">
+    </form>
+    <hr/>
+    <p>Have an account with us already? <a href="{% url 'login' %}">Sign in</a> </p>
+</div>
+{% endblock content %}
+
+
+
+

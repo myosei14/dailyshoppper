@@ -1,0 +1,30 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+<!--header links-->
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock header_links %}
+
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="product_detail_section">
+            Lorem lorem
+        </div>
+
+        
+    </div>
+{% endblock content %}
+
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}

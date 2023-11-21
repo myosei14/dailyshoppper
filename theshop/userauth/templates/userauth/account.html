@@ -1,0 +1,88 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account.css'%}">
+{% endblock header_links %}
+
+<!--content-->
+{% block content %}
+        {{ customer_details_form.as_p }}
+        <div class="container">
+                <div class="product_detail_section">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <a href="#" class="back_to_products" onclick="history.back()">Back</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                                {% if accountinfo %}
+                                <form method="POST", action="#">
+                                        {% csrf_token %}
+                                        <div class="info_update_container">
+                                                <div class="row">
+                                                        <label for="name_update">Full name</label>
+                                                        <input type="text" class="form-control" value="{{ accountinfo.customer.name }}" name="name_update" disabled>
+                                                </div>
+                                                <div class="row">
+                                                        <label for="email_update">Email </label>
+                                                        <input type="text" class="form-control" value="{{ accountinfo.customer.email }}" name="email_update">
+                                                </div>
+                                                <div class="row">
+                                                        <label for="password">Password {{ accountinfo.customer.password }}</label>
+
+                                                        {% if accountinfo.customer.password == "admin" %}
+                                                                <p>the password is the same</p>
+                                                        {% endif %}
+                                                        <input type="password" class="form-control" value="{{ accountinfo.customer.password }}" name="password">
+                                                </div>
+                                        </div>
+
+                                </form>
+                                        
+                                {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                                {% if accountinfo %}
+                                        <form method="POST", action="#">
+                                                {% csrf_token %}
+                                                <div class="info_update_container">
+                                                        <div class="row">
+                                                                <label for="hse_no_update">House number</label>
+                                                                <input type="text" class="form-control" value="{{ accountinfo.house_number }}" name="hse_no_update">
+                                                        </div>
+                                                        <div class="row">
+                                                                <label for="street_update">Street name</label>
+                                                                <input type="text" class="form-control" value="{{ accountinfo.street }}" name="street_update">
+                                                        </div>
+                                                        <div class="row">
+                                                                <label for="county_update">County</label>
+                                                                <input type="text" class="form-control" value="{{ accountinfo.region_or_county }}" name="county_update">
+                                                        </div>
+                                                        <div class="row">
+                                                                <label for="post_code_update">Postcode</label>
+                                                                <input type="text" class="form-control" value="{{ accountinfo.postcode }}" name="post_code_update">
+                                                        </div>
+                                                        <div class="row">
+                                                                <label for="country_update">Country</label>
+                                                                <input type="text" class="form-control" value="{{ accountinfo.country }}" name="country_update" disabled>
+                                                        </div>
+                                                        <div class="row">
+                                                                <label for="phone_update">House Number</label>
+                                                                <input type="text" class="form-control" value="{{ accountinfo.phone }}" name="phone_update">
+                                                        </div>
+                                                </div>
+
+                                        </form>
+                                {% endif %}
+                        </div>
+                    </div>
+                      
+                </div>
+            </div>
+{% endblock content %}
+
+

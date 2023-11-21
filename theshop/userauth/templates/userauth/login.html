@@ -1,0 +1,29 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock header_links %}
+
+{% block content %}
+    <div class="form_container" id="signin_container">
+        <h3>Sign in</h3><br/>
+        <p><a href="{% url 'index' %}">Back to Store</a></p>
+        {% for message in messages %}
+                    <p class= "animate__animated animate__fadeInDown messages">{{ message }}</p>
+        {% endfor %}
+        <br/>
+        <form method="POST" action="" name="customer_login_form">
+            {% csrf_token %}
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <br/>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <input type="submit" class="btn btn-success" value="Sign in">
+        </form>
+        <hr/>
+        <p>Don't have an account with us? <a href="{% url 'register' %}">Register</a> </p>
+    </div>
+{% endblock content %}
+

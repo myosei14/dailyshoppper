@@ -1,0 +1,53 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+<!--content-->
+{% block content %}
+{% include 'shop/image_slider.html' %}
+<!--top deals section starts-->
+<section class="container" id="top_deals">
+    {% for message in messages %}
+                    <p class= "animate__animated animate__fadeInDown messages">{{ message }}</p>
+    {% endfor %}
+    <h6 class="section_title">Top Deals</h6>
+
+    <div class="section_title_wrapper"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="img_wrapper">
+                <img src="{% static 'images/item1.jpg' %}" class="img-fluid">
+                <div class="img_details"><h6>Lastest Product 001</h6> <p>Description</p></div>
+                <button class="deals_shop_btn">Shop</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="img_wrapper">
+                <img src="{% static 'images/item2.jpg' %}" class="img-fluid">
+                <div class="img_details"><h6>Lastest Product 002</h6> <p>Description</p></div>
+                <button class="deals_shop_btn">Shop</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="img_wrapper">
+                <img src="{% static 'images/item2.jpg' %}" class="img-fluid">
+                <div class="img_details"><h6>Lastest Product 002</h6> <p>Description</p></div>
+                <button class="deals_shop_btn">Shop</button>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<!--top deals section ends-->
+{% endblock content %}
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}
+

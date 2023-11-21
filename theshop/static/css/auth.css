@@ -1,0 +1,32 @@
+.form_container{
+    width: 30%;
+    margin: 10% auto;
+    border-radius: 5px;
+    -ms-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#signin_container{
+    width: 25%;
+}
+
+.errorlist{
+    display: none;
+}
+
+.accordion-item{
+    background-color: inherit;
+    
+}
+
+.accordion-body{
+    padding: 10%;
+}
+
+.form-control{
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+

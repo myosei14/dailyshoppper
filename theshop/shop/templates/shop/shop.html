@@ -1,0 +1,127 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+<!--header links-->
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock header_links %}
+
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+<!--content-->
+{% block content %}
+    <section class="container">
+        {% if product_category_1 %}
+            <h6 class="category_title" id="category_one">Category 1</h6>
+            <div class="row">
+                {% for product in product_category_1 %}
+                        <div class="col-sm-4">
+                            <a href="{% url 'product_detail' product.id %}">
+                                <div class="item_wrapper">
+                                    <img src="{{ product.image.url }}" alt="mac" class="img-fluid">
+                                    <p class="item_name">{{ product.product }}</p>
+                                    <p class="item_description">This is the Description for Item 1</p>
+                                    <p class="item_price">$ {{ product.price }}</p>
+                                    <button class="buy_btn" >View Product</button>
+                                </div>
+                            </a>
+                        </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if product_category_2 %}
+            <h6 class="category_title" id="category_two">Category 2</h6>
+            <div class="row">
+                {% for product in product_category_2 %}
+                    <div class="col-sm-4">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <div class="item_wrapper">
+                                <img src="{{ product.image.url }}" alt="mac" class="img-fluid product_image">
+                                <p class="item_name">{{ product.product }}</p>
+                                <p class="item_description">This is the Description for Item 1</p>
+                                <p class="item_price">$ {{ product.price }}</p>
+                                <button class="buy_btn">View Product</button>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if product_category_3 %}
+            <h6 class="category_title" id="category_three">Category 3</h6>
+            <div class="row">
+                {% for product in product_category_3 %}
+                    <div class="col-sm-4">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <div class="item_wrapper">
+                                <img src="{{ product.image.url }}" alt="mac" class="img-fluid product_image">
+                                <p class="item_name">{{ product.product }}</p>
+                                <p class="item_description">This is the Description for Item 1</p>
+                                <p class="item_price">$ {{ product.price }}</p>
+                                <button class="buy_btn">View Product</button>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if product_category_4 %}
+            <h6 class="category_title" id="category_four">Category 4</h6>
+            <div class="row">
+                {% for product in product_category_4 %}
+                    <div class="col-sm-4">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <div class="item_wrapper">
+                                <img src="{{ product.image.url }}" alt="mac" class="img-fluid product_image">
+                                <p class="item_name">{{ product.product }}</p>
+                                <p class="item_description">This is the Description for Item 1</p>
+                                <p class="item_price">$ {{ product.price }}</p>
+                                <button class="buy_btn">View Product</button>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="row">
+<!--            <div class="col-sm-4">-->
+<!--                <div class="item_wrapper">-->
+<!--                    <img src="{% static 'images/item1.jpg'%}" alt="mac" class="img-fluid">-->
+<!--                    <p class="item_name">Item Name</p>-->
+<!--                    <p class="item_description">This is the Description for Item 1</p>-->
+<!--                    <p class="item_price">$60.00</p>-->
+<!--                    <button class="add_to_cart">Add to Cart</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-sm-4">-->
+<!--                <div class="item_wrapper">-->
+<!--                    <img src="{% static 'images/item2.jpg'%}" alt="mac" class="img-fluid">-->
+<!--                    <p class="item_name">Item Name</p>-->
+<!--                    <p class="item_description">This is the Description for Item 1</p>-->
+<!--                    <p class="item_price">$60.00</p>-->
+<!--                    <button class="add_to_cart">Add to Cart</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-sm-4">-->
+<!--                <div class="item_wrapper">-->
+<!--                    <img src="{% static 'images/item1.jpg'%}" alt="mac" class="img-fluid">-->
+<!--                    <p class="item_name">Item Name</p>-->
+<!--                    <p class="item_description">This is the Description for Item 1</p>-->
+<!--                    <p class="item_price">$60.00</p>-->
+<!--                    <button class="add_to_cart">Add to Cart</button>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </section>
+{% endblock content %}
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}
