@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product
+from userauth.models import AccountInfo
 from .models import OrderItem, Order
 from django.utils.html import escape
 from django.template import loader
@@ -55,8 +56,17 @@ def update_cart(request, slug):
 # checkout 
 def checkout(request):
     checkout_template = loader.get_template('order/checkout.html')
+    if request.user.is_authenticated:
+            accountinfo = AccountInfo.objects.get(customer= request.user)
+    order_items = OrderItem.objects.filter(user=request.user, is_ordered=False)
+    order_total = 0
+    if order_items:
+        for item in order_items:
+            order_total += item.product.price * item.quantity
     context = {
-
+        'order_items': order_items,
+        'order_total': order_total,
+        'accountinfo': accountinfo,
     }
 
     return HttpResponse(checkout_template.render(context, request))

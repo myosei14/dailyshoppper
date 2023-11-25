@@ -1,9 +1,10 @@
 {% extends 'shop/base.html' %}
 {% load static %}
+{% load mathfilters %}
 
 <!--header links-->
 {% block header_links %}
-    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart_checkout.css' %}">
     <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
 {% endblock header_links %}
 
@@ -14,9 +15,57 @@
 
 {% block content %}
     <div class="container">
-
         <div class="product_detail_section">
-            Lorem lorem
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="#" class="back_to_products" onclick="history.back()">Back</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Order Details</h5>
+                        {% for order in order_items %}
+                            <div class="row">
+                                <input type="hidden" value="{{order.product.id}}" class="hidden-form" name="{{order.product.id}}"/>
+                                <div class="row cart_item">
+                                    <div class="col-md-3">
+                                        <img src="{{ order.product.image.url }}" alt="{{ order.product }}" class="img-fluid cart_product_img" width=100 height=100> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p>£{{order.product.price}} This is a short Description</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p> {{order.quantity}} * {{ order.product }}</p>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <p> £{{ order.quantity|mul:order.product.price }}</p>
+                                    </div>
+                                </div> 
+                            </div>
+                        {% endfor %}
+                        <div class="row">
+                            <h5>{{order_total}}</h5>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Delivery Address</h5>
+                        {% if request.user.is_authenticated and accountinfo %}
+                            <p>{{ request.user.name }}</p>
+                            <p>{{ accountinfo.house_number }}</p>
+                            <p>{{ accountinfo.street }}</p>
+                            <p>{{ accountinfo.region_or_county }}</p>
+                            <p>{{ accountinfo.postcode }}</p>
+                            <p>{{ accountinfo.country }}</p>
+                            <p>{{ accountinfo.phone }}</p>
+                        {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h5>Payment</h5>
+                </div>
+            </div>
         </div>
 
         
