@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 class CustomerTests(TestCase):
     def test_create_user(self):
         db = get_user_model()
-        user = db.objects.create_user('name', 'test@user.com', 'password')
+        user = db.objects.create_user('test@user.com', 'name', 'password')
         self.assertEqual(user.name, 'name')
         self.assertEqual(user.email, 'test@user.com')
         self.assertEqual(user.password, 'password')
