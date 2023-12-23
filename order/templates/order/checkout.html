@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 delivery_address">
                     <h5>Delivery Address</h5>
                         {% if request.user.is_authenticated and accountinfo %}
                             <p>{{ request.user.name }}</p>
@@ -62,7 +62,7 @@
                             <p>{{ accountinfo.phone }}</p>
                         {% endif %}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 payment">
                     <h5>Payment</h5>
                 </div>
             </div>

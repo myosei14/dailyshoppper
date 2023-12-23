@@ -25,19 +25,43 @@
                                         <div class="info_update_container">
                                                 <div class="row">
                                                         <label for="name_update">Full name</label>
-                                                        <input type="text" class="form-control" value="{{ accountinfo.customer.name }}" name="name_update" disabled>
+                                                        <input type="text" class="form-control" value="{{ accountinfo.customer.name }}" name="name_update" disabled/>
                                                 </div>
                                                 <div class="row">
                                                         <label for="email_update">Email </label>
-                                                        <input type="text" class="form-control" value="{{ accountinfo.customer.email }}" name="email_update">
+                                                        <input type="text" class="form-control" value="{{ accountinfo.customer.email }}" name="email_update" disabled/>
                                                 </div>
                                                 <div class="row">
-                                                        <label for="password">Password {{ accountinfo.customer.password }}</label>
-
-                                                        {% if accountinfo.customer.password == "admin" %}
-                                                                <p>the password is the same</p>
-                                                        {% endif %}
-                                                        <input type="password" class="form-control" value="{{ accountinfo.customer.password }}" name="password">
+                                                      <!-- Button trigger for change password modal -->
+                                                        <button type="button" class="edit_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                                Change Password
+                                                        </button>
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                <div class="modal-header"> 
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Password</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                        <div class="change_password">
+                                                                                <label for="old_password">Old Password</label>
+                                                                                <input type="password" class="form-control" name="old_password" />
+                                                                                <label for="old_password">New Password</label>
+                                                                                <input type="password" class="form-control" name="new_password" />
+                                                                                <label for="old_password">Confirm New Password</label>
+                                                                                <input type="password" class="form-control" name="new_password_confirmation" />
+                                                                        </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary">Understood</button>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                        </div>  
                                                 </div>
                                         </div>
 

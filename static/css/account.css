@@ -9,3 +9,20 @@
 .info_update_container .row{
     margin: 1.5em 0;
 }
+
+.edit_btn{
+    border: none;
+    background-color: #0070E0;
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    -ms-border-radius: 1em;
+    -o-border-radius: 1em;
+    width: inherit;
+    padding: 0.5em 1em;
+    color: #FFF;
+}
+
+.edit_btn:hover{
+    background-color: #0262c2;
+}
