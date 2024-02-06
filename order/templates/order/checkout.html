@@ -5,7 +5,9 @@
 <!--header links-->
 {% block header_links %}
     <link rel="stylesheet" href="{% static 'css/cart_checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
     <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <script src="{% static 'js/checkout.js' %}" defer></script>
 {% endblock header_links %}
 
 <!--menu-->
@@ -44,9 +46,6 @@
                                 </div> 
                             </div>
                         {% endfor %}
-                        <div class="row">
-                            <h5>{{order_total}}</h5>
-                        </div>
                 </div>
             </div>
             <div class="row">
@@ -64,6 +63,35 @@
                 </div>
                 <div class="col-md-6 payment">
                     <h5>Payment</h5>
+                    <!-- Display a payment form -->
+                    <form id="payment-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="link-auth-element">
+                                </div>
+                                <div id="address-element">
+                                    <!--Stripe.js injects the Payment Element-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {% if order_total_price %}
+                                Total = {{ order_total_price }}
+                                {%endif%}
+                                <div id="payment-element">
+                                <!--Stripe.js injects the Payment Element-->
+                                </div>
+                                <button id="submit">
+                                <div class="spinner hidden" id="spinner"></div>
+                                <span id="button-text">Pay now</span>
+                                </button>
+                                <div id="payment-message" class="hidden"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        var CSRF_TOKEN = '{{ csrf_token }}';
+                    </script>
                 </div>
             </div>
         </div>

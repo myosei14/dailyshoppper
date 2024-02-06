@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'userauth.apps.UserauthConfig',
     'order.apps.OrderConfig',
+    'payment.apps.PaymentConfig',
     'mathfilters',
 
 ]
@@ -126,3 +127,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userauth.Customer'
+
+LOGIN_URL = '/userauth/login'
+LOGIN_REDIRECT_URL = '/userauth/account'

@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 # custom user code begins
 # custom model manager
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, name, password, **extra_fields):
+    def create_user(self, email,name, password, **extra_fields):
         if not email:
             raise ValueError(_('Email must be set'))
         email = self.normalize_email(email)
@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
 
 # user model - using AbstractBaseUser
 class Customer(AbstractBaseUser, PermissionsMixin):
-    name = models.CharField(_('First and last name'), max_length=250)
+    name = models.CharField(_('Device Id or Full Name'), max_length=200)
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -42,7 +42,10 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        if self.email == '':
+            return self.name
+        else:
+            return self.email
 # custom user code ends
 
 
@@ -53,14 +56,15 @@ class AccountInfo(models.Model):
         ('UK', 'United Kingdom'),
         ('USA', 'United States')
     )
-    house_number = models.CharField(max_length=250)
-    street = models.CharField(max_length=250)
-    town = models.CharField(max_length=250)
-    region_or_county = models.CharField(max_length=100)
-    postcode = models.CharField(max_length=10)
+    house_number = models.CharField(max_length=250, blank=True, null=True)
+    street = models.CharField(max_length=250, blank=True, null=True)
+    town = models.CharField(max_length=250, blank=True, null=True)
+    region_or_county = models.CharField(max_length=100, blank=True, null=True)
+    postcode = models.CharField(max_length=10, blank=True, null=True)
     country = models.CharField(max_length=100, choices=COUNTRIES, default='UK')
-    phone = models.CharField(max_length=20)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    deviceId = models.CharField(_('Device Id'), max_length=200, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.customer.email

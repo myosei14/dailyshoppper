@@ -23,7 +23,9 @@
         {% else %}
             <li><a href="{% url 'login' %}"><i class="bi bi-person"></i> <span class="acc_cart_text">Login</span></a></li>
         {% endif %}
-        <li><a href="{% url 'cart' %}"><i class="bi bi-cart3"></i><sup>{{request.user|get_cart_count}}</sup> <span class="acc_cart_text">Cart</span></a></li>
+        <li><a href="{% url 'cart' %}"><i class="bi bi-cart3"></i><sup>
+            {% get_cart_count %}
+        </sup> <span class="acc_cart_text">Cart</span></a></li>
 <!--        search form -->
 
         <li class="li_search">

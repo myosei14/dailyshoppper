@@ -7,6 +7,7 @@ from .models import Customer, AccountInfo
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
+from order.views import merge_guest_registered_cart
 
 
 # class Authz(View):
@@ -33,10 +34,12 @@ def login_customer(request):
 
         if user is not None:
             login(request, user)
-            print(user.name)
+            merge_guest_registered_cart(request)
             messages.success(request, 'Login Successful')
             if next != '':
                 return redirect(next)
+            elif next == '':
+                return redirect('account')
             else:
                 return redirect('login')
         else:

@@ -1,0 +1,29 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load mathfilters %}
+
+<!--header links-->
+{% block header_links %}
+    <link rel="stylesheet" href="{% static 'css/cart_checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <script src="{% static 'js/checkout.js' %}" defer></script>
+{% endblock header_links %}
+
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+{% block content %}
+<div id="payment-message" class="hidden"></div>
+    {% if payment_status %}
+        {{ payment_status }}
+    {% endif %}
+{% endblock content %}
+
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}

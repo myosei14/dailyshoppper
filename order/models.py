@@ -8,7 +8,7 @@ class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     quantity = models.IntegerField(default=1)
-    # is_ordered = models.BooleanField(default=False)
+    guest_registered_merged = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
     # date_ordered = models.DateTimeField(null=True)
 
