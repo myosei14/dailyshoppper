@@ -15,14 +15,11 @@ body{
 	margin-top: 6%;
 }
 
-h3.section_title{
-	font-weight: bold;
-}
 
 div.section_title_wrapper{
 	width: 4%;
 	height: 1px;
-	border-top: 2px solid #0070E0;
+	border-top: 3px solid #0070E0;
 	margin-bottom: -4%;
 }
 
@@ -36,10 +33,13 @@ div.section_title_wrapper{
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+	height: inherit;
+	box-shadow: 1px 1px 20px  rgb(208, 208, 208);
+	border-radius: 1em;
 }
 
 #top_deals div img {
-	border-radius: 1em;
+	
 	overflow: hidden;
 }
 
@@ -48,12 +48,22 @@ div.section_title_wrapper{
 	left: 1em;
 	bottom: 1em;
 	transition: bottom 0.5s;
-	color: #FFF;
+	color: #231F20;
+	/* background-color: #FFF; */
+	border-radius: 1em;
+	max-height: 200px;
 }
 
 #top_deals .img_details h6{
 	font-weight: bolder;
 	text-transform: uppercase;
+}
+
+#top_deals .img_details h6, #top_deals .img_details p{
+	background-color: #FFF;
+	border-radius: 0.2em;
+	padding: 0.2em;
+	border-left: 3px solid #0070E0;
 }
 
 .deals_shop_btn{
@@ -68,9 +78,8 @@ div.section_title_wrapper{
 	font-weight: bold;
 	border: none;
 	visibility: hidden;
-	left: 0;
+	/* display: none; */
 	bottom: 0;
-	transition: left 0.7s;
 	transition: bottom 0.7s;
 }
 
@@ -91,13 +100,20 @@ div.section_title_wrapper{
 
 #top_deals .img_wrapper:hover .deals_shop_btn{
 	position: absolute;
-	bottom: 1em;
-	left: 1.5em;
+	bottom: 0.5em;
 	color: #FFF;
 	visibility: visible;
+	/* display: block; */
 }
 
 #top_deals .img_wrapper:hover .img_details{
-	bottom: 2em;
+	bottom: 3em;
+	color: #FFF;
 	visibility: visible;
+	background-color: transparent;
+}
+
+#top_deals .img_wrapper:hover .img_details h6, #top_deals .img_wrapper:hover .img_details p{
+	background-color: transparent;
+	border-left: none;
 }

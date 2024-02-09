@@ -46,11 +46,25 @@
                                 </div> 
                             </div>
                         {% endfor %}
+    
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 delivery_address">
-                    <h5>Delivery Address</h5>
+                <div class="col-md-6" style="text-align:right;">
+                    <h3>Total</h3>
+                </div>
+                <div class="col-md-3">
+                        
+                </div>
+                <div class="col-md-3" style="text-align:center;">
+                    {% if order_total_price %}
+                        <p> £ {{ order_total_price }} </p>
+                    {%endif%}
+                </div>
+            </div>
+            <div class="row">
+                {% comment %} <div class="col-md-6 delivery_address"> {% endcomment %}
+                    {% comment %} <h5>Delivery Address</h5>
                         {% if request.user.is_authenticated and accountinfo %}
                             <p>{{ request.user.name }}</p>
                             <p>{{ accountinfo.house_number }}</p>
@@ -59,9 +73,9 @@
                             <p>{{ accountinfo.postcode }}</p>
                             <p>{{ accountinfo.country }}</p>
                             <p>{{ accountinfo.phone }}</p>
-                        {% endif %}
-                </div>
-                <div class="col-md-6 payment">
+                        {% endif %} {% endcomment %}
+                {% comment %} </div> {% endcomment %}
+                <div class="col-md-12 payment">
                     <h5>Payment</h5>
                     <!-- Display a payment form -->
                     <form id="payment-form">
@@ -75,9 +89,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                {% if order_total_price %}
-                                Total = {{ order_total_price }}
-                                {%endif%}
                                 <div id="payment-element">
                                 <!--Stripe.js injects the Payment Element-->
                                 </div>

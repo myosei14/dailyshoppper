@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{% static 'css/account.css'%}">
 {% endblock header_links %}
 
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
 <!--content-->
 {% block content %}
         {{ customer_details_form.as_p }}
@@ -108,5 +113,10 @@
                 </div>
             </div>
 {% endblock content %}
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}
 
 

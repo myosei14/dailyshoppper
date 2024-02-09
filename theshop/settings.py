@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'userauth.apps.UserauthConfig',
     'order.apps.OrderConfig',
-    'payment.apps.PaymentConfig',
     'mathfilters',
 
 ]

@@ -5,16 +5,36 @@
 .carousel-control-prev-icon{
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230070E0'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
 }
-.carousel-caption h3{
-	font-weight: bolder;
+
+.carousel-caption{
+	color: #231F20;
+	/* top: 40%; */
+}
+
+.carousel-caption h1{
+	font-weight: bold;	
 }
 
 .carousel-caption p{
-	font-weight: bold;
+	font-size: 1.5em;
+	font-weight: 100;
+	letter-spacing: normal;
 }
 
 .carousel-indicators [data-bs-target]{
 	background-color: #0070E0;
+}
+
+#banner_shop_btn{
+	padding: 0.7em 3em;
+	border:#231F20 1.5px solid;
+	transition: all 0.7s;
+}
+
+#banner_shop_btn:hover{
+	border: transparent 1.5px solid;
+	color:#0070E0;
+	
 }
 
 /*.carousel_wrapper{

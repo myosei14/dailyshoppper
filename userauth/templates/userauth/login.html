@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 {% endblock header_links %}
 
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
 {% block content %}
     <div class="form_container" id="signin_container">
         <h3>Sign in</h3><br/>
@@ -26,4 +31,9 @@
         <p>Don't have an account with us? <a href="{% url 'register' %}">Register</a> </p>
     </div>
 {% endblock content %}
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}
 

@@ -3,8 +3,14 @@
 {% block header_links %}
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 {% endblock header_links %}
-{% block content %}
 
+<!--menu-->
+{% block menu %}
+    {% include 'shop/nav.html' %}
+{% endblock menu %}
+
+
+{% block content %}
 <div class="form_container">
     <h3>Create account</h3><br/>
     <p><a href="{% url 'index' %}">Back to Store</a></p>
@@ -48,6 +54,11 @@
     <p>Have an account with us already? <a href="{% url 'login' %}">Sign in</a> </p>
 </div>
 {% endblock content %}
+
+<!--footer-->
+{% block footer %}
+{% include 'shop/footer.html' %}
+{% endblock footer %}
 
 
 

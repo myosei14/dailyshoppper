@@ -13,13 +13,25 @@ from django.http import JsonResponse
 # This is your test secret API key.
 stripe.api_key = 'sk_test_51MnhhkFJZvKQhNrQgEc0qUvwPdzoa4aPHUX48Qt2eJOT5BZbYdgIslZAE1Zr3Hl1YVS0UeFegh2B4FrfmlvYiUJ400MA4p4STC'
 
+#adds order items to order
+def add_items_to_order(request):
+    if request.user.is_authenticated:
+        order_items = OrderItem.objects.filter(user=request.user, ordered=False)
+        if order_items:
+            order, created = Order.objects.get_or_create(user=request.user, ordered=False, items=order_items)
+        
+        
+
+#gets current user (registered or guest user)
 def get_customer(request):
     customer = request.user
     if request.user.is_anonymous:
-        deviceId = request.COOKIES['deviceId']
-        anonymousEmail = deviceId+'@guest.com'
-        print('this is your deviced id', deviceId)
-        customer, created = Customer.objects.get_or_create(name=deviceId, email=anonymousEmail)
+        try:
+            deviceId = request.COOKIES['deviceId']
+            anonymousEmail = deviceId+'@guest.com'
+            customer, created = Customer.objects.get_or_create(name=deviceId, email=anonymousEmail)
+        except:
+            print('Device Id yet to be created')
     return customer
 
 #merges cart items added as a guest user to cart items added a registered user
@@ -56,46 +68,48 @@ def merge_guest_registered_cart(request):
                         guest_order_item.save()
                     else:
                         print('order does not exist')
-                        order_item = OrderItem.objects.create(product_id=item_id, user=request.user, is_ordered=False, quantity=quantity, guest_registered_merged =True) 
-                             
+                        order_item = OrderItem.objects.create(product_id=item_id, user=request.user, is_ordered=False, quantity=quantity, guest_registered_merged =True)              
 
         except:
-            pass
+            print("Merging guest and user carts failed")
 
 def add_to_cart(request, slug):
-    # user = get_object_or_404(User, user=request.user)
-    # product = Products.objects.filter(id=kwargs.get('item_id', "")).first()
-    # product = get_object_or_404(Product, id=slug)
-    # quantity = 0
     if request.method == 'POST':
         quantity = escape(request.POST.get('quantity'))
-            
+        
         try:
             customer = get_customer(request)
-            
-            order_exists = OrderItem.objects.filter(product_id=slug, user=customer, is_ordered=False)
+            order_exists = OrderItem.objects.get(product_id=slug, user=customer, is_ordered=False)
             if order_exists:
-                order_item = OrderItem.objects.get(product_id=slug, user=customer, is_ordered=False)
-                order_quantity = int(order_item.quantity) + int(quantity)
-                order_item.quantity = order_quantity
-                order_item.guest_registered_merged = False
-                order_item.save()
+            # order_item = OrderItem.objects.get(product_id=slug, user=customer, is_ordered=False)
+                order_quantity = int(order_exists.quantity) + int(quantity)
+                order_exists.quantity = order_quantity
+                order_exists.guest_registered_merged = False
+                order_exists.save()
             else:
-                order_item = OrderItem.objects.create(product_id=slug, user=customer, is_ordered=False, quantity=quantity, guest_registered_merged =False)
+                pass
+        except:
+             order_item = OrderItem.objects.create(product_id=slug, user=customer, is_ordered=False, quantity=quantity, guest_registered_merged=False)
             
-            if request.user.is_authenticated:
-                print('in adding cart to guest')
+           
+        #updates guest cart when user is logged in
+        if request.user.is_authenticated:
+            try:
                 deviceId = request.COOKIES['deviceId']
                 guest_user = Customer.objects.get(name=deviceId)
                 order_item = OrderItem.objects.get(product_id=slug, user=request.user, is_ordered=False)
-                print('order item', order_item.quantity)
-                guest_order_item, created = OrderItem.objects.get_or_create(product_id=slug, user=guest_user, is_ordered=False, quantity=order_item.quantity, guest_registered_merged = True)
-
-
-        except:
-            print("Order will be created")
-
-        
+                guest_order_item = OrderItem.objects.get(product_id=slug, user=guest_user, is_ordered=False)
+            
+                if guest_order_item:
+                    guest_order_item.quantity = order_item.quantity
+                    guest_order_item.guest_registered_merged = True
+                    guest_order_item.save()
+                    order_item.guest_registered_merged = True
+                    order_item.save()
+            except:
+                guest_order_item = OrderItem.objects.create(product_id=slug, user=guest_user, is_ordered=False, quantity=order_item.quantity, guest_registered_merged =True)
+                order_item.guest_registered_merged = True
+                order_item.save()
 
         return redirect("product_detail", slug=slug)
 
