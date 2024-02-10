@@ -17,12 +17,14 @@ class OrderItem(models.Model):
 
 
 class Order(models.Model):
-    ref_code = models.CharField(max_length=15)
+    ref_code = models.CharField(max_length=20, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     items = models.ManyToManyField(OrderItem)
-    # start_date = models.DateTimeField(auto_now=True)
-    date_ordered = models.DateTimeField(auto_now=True)
+    date_added = models.DateTimeField(auto_now=True)
+    date_ordered = models.DateTimeField(null=True, blank=True)
+    order_cost = models.FloatField(null=True, blank=True)
+    paid = models.BooleanField(default=False)
 
     def get_cart_items(self):
         return self.items.all()

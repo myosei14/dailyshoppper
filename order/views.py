@@ -16,11 +16,22 @@ stripe.api_key = 'sk_test_51MnhhkFJZvKQhNrQgEc0qUvwPdzoa4aPHUX48Qt2eJOT5BZbYdgIs
 #adds order items to order
 def add_items_to_order(request):
     if request.user.is_authenticated:
-        order_items = OrderItem.objects.filter(user=request.user, ordered=False)
-        if order_items:
-            order, created = Order.objects.get_or_create(user=request.user, ordered=False, items=order_items)
+        try:
+            order_items = OrderItem.objects.filter(user=request.user, is_ordered=False)
+            if order_items:
+                try:
+                    order = Order.objects.get(user=request.user)
+                    if order:
+                        order.items.set(order_items)
+                        order.save()
+                        
+                except:
+                    new_order = Order.objects.create(user=request.user)
+                    new_order.items.set(order_items)
+        except:
+            print('User has no order')
         
-        
+
 
 #gets current user (registered or guest user)
 def get_customer(request):
@@ -68,7 +79,9 @@ def merge_guest_registered_cart(request):
                         guest_order_item.save()
                     else:
                         print('order does not exist')
-                        order_item = OrderItem.objects.create(product_id=item_id, user=request.user, is_ordered=False, quantity=quantity, guest_registered_merged =True)              
+                        order_item = OrderItem.objects.create(product_id=item_id, user=request.user, is_ordered=False, quantity=quantity, guest_registered_merged =True)
+
+                    add_items_to_order(request)              
 
         except:
             print("Merging guest and user carts failed")
@@ -90,8 +103,11 @@ def add_to_cart(request, slug):
                 pass
         except:
              order_item = OrderItem.objects.create(product_id=slug, user=customer, is_ordered=False, quantity=quantity, guest_registered_merged=False)
-            
-           
+
+        #updates user order     
+        add_items_to_order(request) 
+
+
         #updates guest cart when user is logged in
         if request.user.is_authenticated:
             try:
