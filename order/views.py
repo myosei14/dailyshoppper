@@ -27,7 +27,7 @@ def add_items_to_order(request):
                         
                 except:
                     new_order = Order.objects.create(user=request.user)
-                    new_order.items.set(order_items)
+                    new_order.items.set(order_items) 
         except:
             print('User has no order')
         
@@ -135,12 +135,16 @@ def add_to_cart(request, slug):
 def cart(request):
     cart_template = loader.get_template('order/cart.html')
     customer = get_customer(request)
-
-    order_items = OrderItem.objects.filter(user=customer, is_ordered=False)
     context ={
-        'order_items':order_items,
+
     }
 
+    try:
+        order_items = OrderItem.objects.filter(user=customer, is_ordered=False)
+        context ={
+            'order_items':order_items,
+        }
+    except: print('No user found')
     return HttpResponse(cart_template.render(context, request))
     
 

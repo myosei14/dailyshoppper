@@ -20,9 +20,9 @@
         <form method="POST" action="" name="customer_login_form">
             {% csrf_token %}
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address lino@gmail.com">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password Route53#">
             <br/>
             <input type="hidden" name="next" value="{{ next }}" />
             <input type="submit" class="btn btn-success" value="Sign in">

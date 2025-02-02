@@ -14,12 +14,15 @@ def get_cart_count(context):
     request = context['request']
     customer = get_customer(request)
     
-    order_items = OrderItem.objects.filter(user=customer, is_ordered=False)
-    total_quantity = 0
-    if order_items.exists():
-        for item in order_items:
-            total_quantity += item.quantity
-    return total_quantity
+    try:
+        order_items = OrderItem.objects.filter(user=customer, is_ordered=False)
+        total_quantity = 0
+        if order_items.exists():
+            for item in order_items:
+                total_quantity += item.quantity
+        return total_quantity
+    except:
+        print('Anonymous user')
 
 
 
